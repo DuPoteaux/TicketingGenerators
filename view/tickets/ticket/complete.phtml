@@ -1,0 +1,36 @@
+<?= $this->render('tickets/ticket/_orderInformation', ['purchase' => $this->purchase]) ?>
+
+<div class="row">
+    <div class="col-xs-12">
+        <div class="panel panel-default credit-card-box">
+            <div class="panel-heading display-table" >
+                <div class="row display-tr" >
+                    <h3 class="panel-title display-td" >Your tickets</h3>
+                    <div class="display-td" ></div>
+                </div>
+            </div>
+            <div class="panel-body">
+                <table class="table">
+                    <?php foreach($this->purchase->getTickets() as $ticket):?>
+                        <?php $url = $this->url(
+                                'tickets/purchasing/manage',
+                                ['purchaseId' => $this->purchase->getPurchaseId(), 'ticketId' => $ticket->getTicketId()],
+                                ['force_canonical' => true]
+                        )?>
+                        <tr>
+                            <td class="col-xs-6">
+                                <?=$ticket->getTicketType()->getDisplayName()?>
+                            </td>
+                            <td class="col-xs-6">
+                                <?php if (!$ticket->getTicketType()->isSupplementary()): ?>
+                                    <a href="<?=$url?>">Manage</a>
+                                <?php endif;?>
+
+                            </td>
+                        </tr>
+                    <?php endforeach;?>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,90 @@
+<div class="row">
+    <div class="col-xs-12">
+        <div class="panel panel-default credit-card-box">
+            <div class="panel-heading display-table" >
+                <div class="row display-tr" >
+                    <h3 class="panel-title display-td" >Your order</h3>
+                    <div class="display-td" ></div>
+                </div>
+            </div>
+            <div class="panel-body">
+                <table class="table">
+                    <?php foreach($this->purchase->getTicketSummary() as $ticketRecord):?>
+                        <tr>
+                            <td class="col-xs-6">
+                                <?=$ticketRecord['ticketType']->getDisplayName()?>
+                            </td>
+                            <td class="col-xs-6">
+                                <span class="col-xs-4">
+                                    <?=$this->moneyFormat($ticketRecord['ticketType']->getPrice())?>
+                                </span>
+                                <span class="col-xs-4">
+                                    <?=$ticketRecord['quantity']?>
+                                </span>
+                                <span class="col-xs-4">
+                                    <?=$this->moneyFormat($ticketRecord['lineTotal'])?>
+                                </span>
+                            </td>
+                        </tr>
+                    <?php endforeach;?>
+                    <tr>
+                        <td class="col-xs-6">
+
+                        </td>
+                        <td class="col-xs-6">
+                            <span class="hidden-xs col-md-4"></span>
+                            <span class="col-xs-8 col-md-4">
+                                <strong>Discount Code</strong>
+                            </span>
+                            <?php if ($this->purchase->hasDiscountCode()):?>
+                                <span class="col-xs-4"><?=$this->purchase->getDiscountCode()->getDisplayName()?></span>
+                            <?php else:?>
+                                <span class="col-xs-4">None</span>
+                            <?php endif?>
+                        </td>
+                    </tr>
+                    <?php if ($this->ticketsConfig()->displayTax()):?>
+                    <tr>
+                        <td class="col-xs-6">
+
+                        </td>
+                        <td class="col-xs-6">
+                            <span class="hidden-xs col-md-4"></span>
+                            <span class="col-xs-8 col-md-4">
+                                <strong>Sub total</strong>
+                            </span>
+                            <span class="col-xs-4"><?=$this->moneyFormat($this->purchase->getTotalCost(), true)?></span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-xs-6">
+
+                        </td>
+                        <td class="col-xs-6">
+                            <span class="hidden-xs col-md-4"></span>
+                            <span class="col-xs-8 col-md-4">
+                                <strong>VAT</strong>
+                            </span>
+                            <span class="col-xs-4"><?=$this->moneyFormat($this->purchase->getTotalCost()->getTax())?></span>
+                        </td>
+                    </tr>
+                    <?php endif;?>
+                    <tr>
+                        <td class="col-xs-6">
+
+                        </td>
+                        <td class="col-xs-6">
+                            <span class="hidden-xs col-md-4"></span>
+                            <span class="col-xs-8 col-md-4">
+                                <strong>Total</strong>
+                            </span>
+                            <span class="col-xs-4">
+                                <?=$this->moneyFormat($this->purchase->getTotalCost())?>
+                            </span>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

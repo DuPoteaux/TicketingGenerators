@@ -1,0 +1,28 @@
+<?php
+
+return [
+    'mail' => [
+        'name' => '',
+        'host' => '',
+        'port' => 465,
+        'connection_class' => 'plain',
+        'connection_config' => [
+            'username' => '',
+            'password' => '',
+            'ssl' => '',
+        ],
+    ],
+    'conferencetools' => [
+        'mailconf' => [
+            'purchase' => [
+                'subject' => 'Your PHP Yorkshire Ticket Receipt',
+                'from' => 'info@phpyorkshire.co.uk',
+            ],
+        ],
+        'website' => [
+            'host' => '',
+            'scheme' => 'http',
+            'port' => 80,
+        ],
+    ],
+];
